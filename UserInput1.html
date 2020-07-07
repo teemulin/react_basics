@@ -16,16 +16,17 @@
         <script type="text/babel">
 
         function HelloName() {
-            const [name, setName] = React.useState("");
-
+            const [name, setName] = React.useState({firstName: '', lastName: ''});
+            
             const inputChanged = (event) => {
-                setName(event.target.value)
+                setName({...name, [event.target.name]: event.target.value})
             }
             
             return(
                 <div>
-                <p>Hello {name}</p>
-                    <input type="text" value={name} onChange={inputChanged} />
+                <p>Hello {name.firstName} {name.lastName} </p>
+                    <input type="text" name="firstName" value={name.firstName} onChange={inputChanged} />
+                    <input type="text" name="lastName" value={name.lastName} onChange={inputChanged} />
                 </div>
             )
         }
