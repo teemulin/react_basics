@@ -22,11 +22,18 @@
                 setName({...name, [event.target.name]: event.target.value})
             }
             
+            const formSubmitted = (event) => {
+                event.preventDefault();
+                alert("Hello " + name.firstName + " " + name.lastName);
+            }
+
             return(
                 <div>
-                <p>Hello {name.firstName} {name.lastName} </p>
-                    <input type="text" name="firstName" value={name.firstName} onChange={inputChanged} />
-                    <input type="text" name="lastName" value={name.lastName} onChange={inputChanged} />
+                    <form onSubmit={formSubmitted}>
+                        <input type="text" name="firstName" value={name.firstName} onChange={inputChanged} />
+                        <input type="text" name="lastName" value={name.lastName} onChange={inputChanged} />
+                        <input type="submit" value="Send" />
+                    </form>
                 </div>
             )
         }
