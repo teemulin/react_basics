@@ -16,7 +16,7 @@
         <script type="text/babel">
 
         function HelloName() {
-            const [name, setName] = React.useState({firstName: '', lastName: ''});
+            const [name, setName] = React.useState({firstName: '', lastName: '', age:''});
             
             const inputChanged = (event) => {
                 setName({...name, [event.target.name]: event.target.value})
@@ -24,14 +24,20 @@
             
             const formSubmitted = (event) => {
                 event.preventDefault();
+                if(name.age>=18){
                 alert("Hello " + name.firstName + " " + name.lastName);
+                }
+                else {
+                    alert("You are too young");
+                }
             }
 
             return(
                 <div>
                     <form onSubmit={formSubmitted}>
-                        <input type="text" name="firstName" value={name.firstName} onChange={inputChanged} />
-                        <input type="text" name="lastName" value={name.lastName} onChange={inputChanged} />
+                        <tr>First name:<input type="text" name="firstName" value={name.firstName} onChange={inputChanged} />
+                        Last name:<input type="text" name="lastName" value={name.lastName} onChange={inputChanged} /> </tr>
+                        <tr>Age:<input type="text" name="age" value={name.age} onChange={inputChanged} /> </tr>
                         <input type="submit" value="Send" />
                     </form>
                 </div>
