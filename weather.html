@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Weather</title>
+    </head>
+    <body>
+        <!-- Root container for react components -->
+        <div id="root"></div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            function Weather() {
+                var weatherDesc;
+                const [weather, setWeather] = React.useState('');
+                const [temperature, setTemperature] = React.useState('');
+                const [url, setUrl] = React.useState('');
+                //kuvakkeet https://openweathermap.org/weather-conditions
+
+                React.useEffect(() => {
+                    fetch('https://api.openweathermap.org/data/2.5/weather?q=Helsinki&units=metric&APPID=7ffb80aad4396eafce7c4c53729f91f1')
+                    .then(response => response.json())
+                    .then(responseData => {
+                        //console.log(responseData);
+                        console.log(responseData.main.temp);
+                        //console.log(responseData.weather);
+                        weatherDesc = responseData.weather[0];
+                        console.log(weatherDesc.description);
+                        console.log(weatherDesc.icon);
+                        setTemperature(responseData.main.temp);
+                        setWeather(weatherDesc.description);
+                        setUrl(`http://openweathermap.org/img/wn/${weatherDesc.icon}@2x.png`);
+                    });
+                }, [])
+
+                return (
+                    <div>
+                        <p>Temperature: {temperature} celcius</p>
+                        <p>Weather: {weather}</p>
+                        <p> <img src={url}></img></p>
+                    </div>
+                );
+
+            };
+
+            ReactDOM.render(<Weather />, document.getElementById("root"));
+
+        </script>
+
+    </body>
+
+</html>
