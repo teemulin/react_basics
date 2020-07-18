@@ -20,10 +20,8 @@
                 const [temperature, setTemperature] = React.useState('');
                 const [url, setUrl] = React.useState('');
                 const [isReady, setReady] = React.useState(false);
-
-                const inputChanged = (event) => {
-                    setLocation(event.target.value)
-                }
+                const [city, setCity] = React.useState('');
+                
 
                 var weatherDesc;
 
@@ -42,10 +40,15 @@
                         setUrl(`http://openweathermap.org/img/wn/${weatherDesc.icon}@2x.png`);
                     });
 
-                }, [location])
+                }, [city])
+
+                const inputChanged = (event) => {
+                    setLocation(event.target.value)
+                }
 
                 const formSubmitted = (event) => {
                 event.preventDefault();
+                setCity(location);
                 setReady(true);    
                 }
 
