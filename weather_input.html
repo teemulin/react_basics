@@ -19,16 +19,53 @@
                 const [weather, setWeather] = React.useState('');
                 const [temperature, setTemperature] = React.useState('');
                 const [url, setUrl] = React.useState('');
+                const [isReady, setReady] = React.useState(false);
+
+                const inputChanged = (event) => {
+                    setLocation(event.target.value)
+                }
+
+                var weatherDesc;
 
                 React.useEffect(() => {
+                    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=7ffb80aad4396eafce7c4c53729f91f1`)
+                    .then(response => response.json())
+                    .then(responseData => {
+                        console.log(responseData);
+                        console.log(responseData.main.temp);
+                        weatherDesc = responseData.weather[0];
+                        console.log(weatherDesc.description);
+                        console.log(weatherDesc.icon);
+                        console.log(location);
+                        setTemperature(responseData.main.temp);
+                        setWeather(weatherDesc.description);
+                        setUrl(`http://openweathermap.org/img/wn/${weatherDesc.icon}@2x.png`);
+                    });
 
                 }, [location])
 
+                const formSubmitted = (event) => {
+                event.preventDefault();
+                setReady(true);    
+                }
+
+                if(!isReady) {
+                    return(
+                    <div>
+                        <form onSubmit={formSubmitted}>
+                            <p><input type="text" name="sijainti" value={location} onChange={inputChanged} /><input type="submit" value="Get weather"/></p>
+                        </form>
+                    </div>
+                    )}
+
                 return (
                     <div>
-                        <p>Temperature: {temperature} celcius</p>
-                        <p>Weather: {weather}</p>
-                        <p> <img src={url}></img></p>
+                        <form onSubmit={formSubmitted}>
+                            <p><input type="text" name="sijainti" value={location} onChange={inputChanged} /><input type="submit" value="Get weather"/></p>
+                            <p>Temperature: {temperature} celcius</p>
+                            <p>Weather: {weather}</p>
+                            <p> <img src={url}></img></p>
+                        </form>
                     </div>
                 );
 
