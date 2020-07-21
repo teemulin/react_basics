@@ -15,26 +15,21 @@
 
         <script type="text/babel">
             function WeatherInput() {
-                const [location, setLocation] = React.useState('');
-                const [weather, setWeather] = React.useState('');
-                const [temperature, setTemperature] = React.useState('');
-                const [url, setUrl] = React.useState('');
-                const [isReady, setReady] = React.useState(false);
-                const [city, setCity] = React.useState('');
+                const [location, setLocation] = React.useState('');         //text input goes here. Separated from city so that it is not trying to update api before submit button    
+                const [weather, setWeather] = React.useState('');           //weather condition goes here (cloudy etc)    
+                const [temperature, setTemperature] = React.useState('');   //temperature info goes here    
+                const [url, setUrl] = React.useState('');                   //this is used to get icon for weather
+                const [isReady, setReady] = React.useState(false);          //used for start screen mechanic
+                const [city, setCity] = React.useState('');                 //what place's weather is showed after submit
                 
-
                 var weatherDesc;
 
+                //API info to get weather data, re-loaded every time city is changed with submit
                 React.useEffect(() => {
-                    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=7ffb80aad4396eafce7c4c53729f91f1`)
+                    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=7ffb80aad4396eafce7c4c53729f91f1`)
                     .then(response => response.json())
                     .then(responseData => {
-                        console.log(responseData);
-                        console.log(responseData.main.temp);
                         weatherDesc = responseData.weather[0];
-                        console.log(weatherDesc.description);
-                        console.log(weatherDesc.icon);
-                        console.log(location);
                         setTemperature(responseData.main.temp);
                         setWeather(weatherDesc.description);
                         setUrl(`http://openweathermap.org/img/wn/${weatherDesc.icon}@2x.png`);
@@ -42,16 +37,19 @@
 
                 }, [city])
 
+                //This is to capture what user types into text box
                 const inputChanged = (event) => {
                     setLocation(event.target.value)
                 }
 
+                //Form submit sets page to ready-status and takes user input typed as city to show weather
                 const formSubmitted = (event) => {
                 event.preventDefault();
                 setCity(location);
                 setReady(true);    
                 }
 
+                //This is loaded before first submit aka start screen
                 if(!isReady) {
                     return(
                     <div>
@@ -61,6 +59,7 @@
                     </div>
                     )}
 
+                //This is loaded after first time form is submitted
                 return (
                     <div>
                         <form onSubmit={formSubmitted}>
