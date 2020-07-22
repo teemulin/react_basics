@@ -19,17 +19,12 @@
                 const [isReady, setReady] = React.useState(false);
                 const [uusi, setUuusi] = React.useState(0);
                                 
-                //This is esecuted only after first render so before pressing button there is nothing
                 React.useEffect(() => {
                     fetch('https://opentdb.com/api.php?amount=1')
                     .then(response => response.json())
                     .then(responseData => {
-                        console.log(responseData);
                         jsonObj = responseData.results[0];
-                        console.log(jsonObj);
-                        
                         setQuestion(jsonObj.question);
-
                     });
 
                 }, [uusi])
