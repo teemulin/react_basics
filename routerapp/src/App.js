@@ -3,7 +3,9 @@ import './App.css';
 import Contact from './Contact';
 import Home from './Home';
 import About from './About';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import Navigator from './Navigator';
+import { BrowserRouter, Switch, Route, } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -11,9 +13,7 @@ function App() {
       <header className="App-header">Welcome to React Router</header>
       <BrowserRouter>
         <div>
-          <Link to="/">Home</Link>{' '}
-          <Link to="/about">About</Link>{' '}
-          <Link to="/contact">Contact</Link>{' '}
+         <Navigator />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/contact" component={Contact} />
