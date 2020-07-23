@@ -59,3 +59,7 @@ th {
 td {
   padding-right: 50px;
 }
+
+label {
+  padding-left: 10px;
+}
