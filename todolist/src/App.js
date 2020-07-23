@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import './App.css';
 import Todolist from './components/Todolist';
+import TodoForm from './components/TodoForm';
 
 function App() {
   const [todo, setTodo] = useState({desc:'', date:''});
@@ -21,11 +22,9 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={addToDo}>
-        Description: <input type="text" name="desc" value={todo.desc} onChange={inputChanged} />
-        Date: <input type="date" name="date" value={todo.date} onChange={inputChanged} />
-        <input type="submit" id="add" value="Add" />
-      </form>
+      <TodoForm inputChanged={inputChanged}
+                addToDo={addToDo}
+                todo={todo} />
       <Todolist todos={todos}
                 doDelete={doDelete} />
     </div>
