@@ -6,11 +6,22 @@ import About from './About';
 import Navigator from './Navigator';
 import { BrowserRouter, Switch, Route, } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Welcome to React Router</header>
+      <header>
+        <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" >
+            J.Smith's Personal Training  
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      </header>
       <BrowserRouter>
         <div>
          <Navigator />
